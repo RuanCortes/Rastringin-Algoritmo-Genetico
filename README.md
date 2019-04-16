@@ -1,0 +1,1 @@
+# Rastringin-Algoritmo-Genetico
