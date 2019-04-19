@@ -1,5 +1,6 @@
 import numpy
 
+
 def calcula_fitness(equation_inputs, pop):
     # Calculating the fitness value of each solution in the current population.
     # The fitness function calulates the sum of products between each input and its corresponding weight.
@@ -21,24 +22,31 @@ def selecao_de_pais(populacao, fitness, quantidade_pais):
         return pais
 
 
-def crossover(pais, ponto_de_corte):
-    offspring = numpy.empty(ponto_de_corte)
+def crossover(pais, comprimento_descendente):
+    descendente = numpy.empty(comprimento_descendente)
     # The point at which crossover takes place between two parents. Usually, it is at the center.
-    crossover_point = numpy.uint8(ponto_de_corte[1] / 2)
 
-    for k in range(ponto_de_corte[0]):
+    print("tamanho")
+    print(comprimento_descendente)
+    ponto_de_corte = numpy.uint8(comprimento_descendente[1] / 2)
+    print("ponto de corte")
+    print(ponto_de_corte)
+
+    for k in range(comprimento_descendente[0]):
+        #TODO: pegar pais de forma aleatoria mais confiavel
         # Index of the first parent to mate.
-        parent1_idx = k % pais.shape[0]
+        pai_1 = k % pais.shape[0]
         # Index of the second parent to mate.
-        parent2_idx = (k + 1) % pais.shape[0]
+        pai_2 = (k + 1) % pais.shape[0]
         # The new offspring will have its first half of its genes taken from the first parent.
-        offspring[k, 0:crossover_point] = pais[parent1_idx, 0:crossover_point]
+        descendente[k, 0:ponto_de_corte] = pais[pai_1, 0:ponto_de_corte]
         # The new offspring will have its second half of its genes taken from the second parent.
-        offspring[k, crossover_point:] = pais[parent2_idx, crossover_point:]
-    return offspring
+        descendente[k, ponto_de_corte:] = pais[pai_2, ponto_de_corte:]
+    return descendente
 
 
 def mutacao(offspring_crossover):
+    # TODO: Refazer mutacao adequada ao nosso cenario
     # Mutation changes a single gene in each offspring randomly.
     for idx in range(offspring_crossover.shape[0]):
         # The random value to be added to the gene.
