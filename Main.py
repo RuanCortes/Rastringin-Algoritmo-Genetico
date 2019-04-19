@@ -1,5 +1,5 @@
 import numpy
-import GA
+import AlgoritmoGenetico
 
 """
 equation_inputs -> definir quantidade de individuos na população. cada, 10 genes cada individuo (10 bits).
@@ -8,54 +8,40 @@ Normalizar os valores inteiros desses individuos multiplicando
 e retornar a população (vetores de binerios/individuos).
 """
 # Inputs of the equation.
-equation_inputs = [4,-2,3.5,5,-11,-4.7]
+individuos = [4, -2, 3.5, 5, -11, -4.7]
 
 # Number of the weights we are looking to optimize.
-num_weights = len(equation_inputs) #Numero de individuos
+quantidade_individuos = len(individuos) #Numero de individuos
 
 """
 Genetic algorithm parameters:
     Mating pool size
     Population size
 """
-sol_per_pop = 8
-
-num_parents_mating = 4
+selecionados_por_populacao = 8
+quantidade_pais_selecionados = 4
+numero_geracoes = 5
 
 # Defining the population size.
-pop_size = (sol_per_pop,num_weights) # The population will have sol_per_pop chromosome where each chromosome has num_weights genes.
+tamanho_populacao = (selecionados_por_populacao, quantidade_individuos)
 #Creating the initial population.
-new_population = numpy.random.uniform(low=-4.0, high=4.0, size=pop_size)
-print(new_population)
+nova_populacao = numpy.random.uniform(low=-4.0, high=4.0, size=tamanho_populacao)
 
-"""
-new_population[0, :] = [2.4,  0.7, 8, -2,   5,   1.1]
-new_population[1, :] = [-0.4, 2.7, 5, -1,   7,   0.1]
-new_population[2, :] = [-1,   2,   2, -3,   2,   0.9]
-new_population[3, :] = [4,    7,   12, 6.1, 1.4, -4]
-new_population[4, :] = [3.1,  4,   0,  2.4, 4.8,  0]
-new_population[5, :] = [-2,   3,   -7, 6,   3,    3]
-"""
-
-best_outputs = []
-
-num_generations = 5
-
-for generation in range(num_generations):
+for geracao in range(numero_geracoes):
     # Measuring the fitness of each chromosome in the population.
-    fitness = GA.cal_pop_fitness(equation_inputs, new_population)
+    fitness = AlgoritmoGenetico.calcula_fitness(individuos, nova_populacao)
 
     # Selecting the best parents in the population for mating.
-    parents = GA.select_mating_pool(new_population, fitness,
-                                    num_parents_mating)
+    pais = AlgoritmoGenetico.selecao_de_pais(nova_populacao, fitness,
+                                             quantidade_pais_selecionados)
 
     # Generating next generation using crossover.
-    offspring_crossover = GA.crossover(parents,
-                                       offspring_size=(pop_size[0]-parents.shape[0], num_weights))
+    descendentes = AlgoritmoGenetico.crossover(pais,
+                                               ponto_de_corte=(tamanho_populacao[0] - pais.shape[0], quantidade_individuos))
 
     # Adding some variations to the offsrping using mutation.
-    offspring_mutation = GA.mutation(offspring_crossover)
+    mutacao_descendentes = AlgoritmoGenetico.mutacao(descendentes)
 
     # Creating the new population based on the parents and offspring.
-    new_population[0:parents.shape[0], :] = parents
-    new_population[parents.shape[0]:, :] = offspring_mutation
+    nova_populacao[0:pais.shape[0], :] = pais
+    nova_populacao[pais.shape[0]:, :] = mutacao_descendentes
