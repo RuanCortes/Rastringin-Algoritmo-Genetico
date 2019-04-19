@@ -1,3 +1,5 @@
+individuos = []
+
 def gera_populacao_aleatoria():
     #TODO: gera populacao aleatoria (10 bits - binario)
     return

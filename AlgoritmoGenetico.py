@@ -3,7 +3,7 @@ import numpy
 
 def calcula_fitness(equation_inputs, pop):
     # Calculating the fitness value of each solution in the current population.
-    # The fitness function calulates the sum of products between each input and its corresponding weight.
+    # The fitness function calculates the sum of products between each input and its corresponding weight.
     fitness = numpy.sum(pop * equation_inputs, axis=1)
     return fitness
 
