@@ -1,47 +1,10 @@
 import numpy
 
-
-sol_per_pop = 8
-# Defining the population size.
-pop_size = (sol_per_pop,num_weights) # The population will have sol_per_pop chromosome where each chromosome has num_weights genes.
-#Creating the initial population.
-new_population = numpy.ram.uniform(low=-4.0, high=4.0, size=pop_size)
-
-
-
-num_generations = 5
-
-num_parents_mating = 4
-for generation in range(num_generations):
-    # Measuring the fitness of each chromosome in the population.
-    fitness = GA.cal_pop_fitness(equation_inputs, new_population)
-
-
-    # Selecting the best parents in the population for mating.
-    parents = GA.select_mating_pool(new_population, fitness,
-                                      num_parents_mating)
-
-    # Generating next generation using crossover.
-    offspring_crossover = GA.crossover(parents,
-                                       offspring_size=(pop_size[0]-parents.shape[0], num_weights))
-
-    # Adding some variations to the offsrping using mutation.
-    offspring_mutation = GA.mutation(offspring_crossover)
-
-
-    # Creating the new population based on the parents and offspring.
-    new_population[0:parents.shape[0], :] = parents
-    new_population[parents.shape[0]:, :] = offspring_mutation
-
-
 def cal_pop_fitness(equation_inputs, pop):
     # Calculating the fitness value of each solution in the current population.
-    # The fitness function caulcuates the sum of products between each input and its corresponding weight.
+    # The fitness function calulates the sum of products between each input and its corresponding weight.
     fitness = numpy.sum(pop*equation_inputs, axis=1)
     return fitness
-
-
-
 
 def select_mating_pool(pop, fitness, num_parents):
     # Selecting the best individuals in the current generation as parents for producing the offspring of the next generation.
@@ -53,12 +16,9 @@ def select_mating_pool(pop, fitness, num_parents):
         fitness[max_fitness_idx] = -99999999999
     return parents
 
-
-
-
 def crossover(parents, offspring_size):
     offspring = numpy.empty(offspring_size)
-    # The point at which crossover takes place between two parents. Usually it is at the center.
+    # The point at which crossover takes place between two parents. Usually, it is at the center.
     crossover_point = numpy.uint8(offspring_size[1]/2)
 
     for k in range(offspring_size[0]):
@@ -72,12 +32,10 @@ def crossover(parents, offspring_size):
         offspring[k, crossover_point:] = parents[parent2_idx, crossover_point:]
     return offspring
 
-
-
-
 def mutation(offspring_crossover):
     # Mutation changes a single gene in each offspring randomly.
     for idx in range(offspring_crossover.shape[0]):
         # The random value to be added to the gene.
         random_value = numpy.random.uniform(-1.0, 1.0, 1)
         offspring_crossover[idx, 4] = offspring_crossover[idx, 4] + random_value
+    return offspring_crossover
