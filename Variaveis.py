@@ -16,6 +16,7 @@ quantidade_individuos = len(individuos)  # Numero de individuos
 selecionados_por_populacao = 8
 quantidade_pais_selecionados = 4
 numero_geracoes = 5
+taxa_mutacao = 0.05
 
 # Defining the population size.
 tamanho_populacao = (selecionados_por_populacao, quantidade_individuos)

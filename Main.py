@@ -18,7 +18,7 @@ def main():
                                                        Variaveis.quantidade_individuos))
 
         # mutacao de descendentes
-        mutacao_descendentes = AlgoritmoGenetico.mutacao(descendentes)
+        mutacao_descendentes = AlgoritmoGenetico.mutacao(descendentes, taxa_mutacao)
 
         # substituicao dos pais pelos filhos - atualizacao da populacao
         Variaveis.nova_populacao[0:pais.shape[0], :] = pais
