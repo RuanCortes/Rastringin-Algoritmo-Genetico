@@ -1,5 +1,5 @@
 import numpy
-
+import relatorios.Execucao
 
 def calcula_fitness(equation_inputs, pop):
     # Calculating the fitness value of each solution in the current population.
@@ -11,8 +11,6 @@ def calcula_fitness(equation_inputs, pop):
 def selecao_de_pais(populacao, fitness, quantidade_pais):
     # Selecting the best individuals in the current generation as parents for producing the offspring of the next generation.
     pais = numpy.empty((quantidade_pais, populacao.shape[1]))
-    print("antes do for")
-    print(pais)
 
     for parent_num in range(quantidade_pais):
         max_fitness_idx = numpy.where(fitness == numpy.max(fitness))
@@ -26,11 +24,7 @@ def crossover(pais, comprimento_descendente):
     descendente = numpy.empty(comprimento_descendente)
     # The point at which crossover takes place between two parents. Usually, it is at the center.
 
-    print("tamanho")
-    print(comprimento_descendente)
     ponto_de_corte = numpy.uint8(comprimento_descendente[1] / 2)
-    print("ponto de corte")
-    print(ponto_de_corte)
 
     for k in range(comprimento_descendente[0]):
         #TODO: pegar pais de forma aleatoria mais confiavel

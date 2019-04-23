@@ -8,7 +8,7 @@ quantidade_individuos = len(individuos)  # Numero de individuos
 """ Parametros algoritmo genetico """
 selecionados_por_populacao = 8
 quantidade_pais_selecionados = 4
-numero_geracoes = 5
+numero_geracoes = 500000000000
 
 tamanho_populacao = (selecionados_por_populacao, quantidade_individuos)
 populacao_inicial = numpy.random.uniform(low=-4.0, high=4.0, size=tamanho_populacao)
