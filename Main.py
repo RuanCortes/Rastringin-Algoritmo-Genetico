@@ -21,7 +21,7 @@ def main():
                                                        InitSetup.quantidade_individuos))
 
         # mutacao de descendentes
-        mutacao_descendentes = AlgoritmoGenetico.mutacao(descendentes)
+        mutacao_descendentes = AlgoritmoGenetico.mutacao(descendentes, taxa_mutacao)
 
         # substituicao dos pais pelos filhos - atualizacao da populacao
         InitSetup.populacao_inicial[0:pais.shape[0], :] = pais

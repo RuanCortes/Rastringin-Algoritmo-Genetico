@@ -39,11 +39,14 @@ def crossover(pais, comprimento_descendente):
     return descendente
 
 
-def mutacao(offspring_crossover):
-    # TODO: Refazer mutacao adequada ao nosso cenario
+def mutacao(descendente, taxa_mutacao):
+    # TODO: Revisar este método para ver se está funcionando crretamente
     # Mutation changes a single gene in each offspring randomly.
-    for idx in range(offspring_crossover.shape[0]):
+    for gene in range(descendente.shape[0]):
         # The random value to be added to the gene.
-        random_value = numpy.random.uniform(-1.0, 1.0, 1)
-        offspring_crossover[idx, 4] = offspring_crossover[idx, 4] + random_value
-    return offspring_crossover
+        if numpy.random.uniform(0.0, 1.0) < taxa_mutacao:
+            if gene == 1:
+                descendente[gene] == 0
+            else:
+                descendente[gene] == 1
+    return descendente
