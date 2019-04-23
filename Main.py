@@ -1,18 +1,22 @@
 import AlgoritmoGenetico
-import setup.Variaveis as InitSetup
-from Individuo import Individuo
 
 
 def main():
+    populacaoInicial = AlgoritmoGenetico.geraPopulacaoInicial()
 
-    individuos = []
-    for x in range(100):
-        ind = Individuo().geraGenesAleatorios()
-        print("fitness: " + str(ind.fitness()))
-        individuos.append(ind)
+    for k in range(300):
+        # print("################# Pais Selecionados #################")
+        pais = AlgoritmoGenetico.selecaoDePaisTorneio(populacaoInicial, 5,
+                                                      len(populacaoInicial))
 
-    print(individuos.__len__())
-    print(individuos)
+        descendentes = AlgoritmoGenetico.crossover(pais)
+        for descendente in descendentes:
+            print("geração: " + str(k) + " genes: " + descendente.getGenes() + " - fitness: " + str(descendente.fitness()))
+        populacaoInicial = descendentes
+
+    print("############### POPULACAO FINAL ###############")
+    for fim in populacaoInicial:
+        print("fim: " + fim.getGenes() + " - fitness: " + str(fim.fitness()))
 
 
 if __name__ == "__main__":

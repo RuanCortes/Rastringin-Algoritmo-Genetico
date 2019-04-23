@@ -26,6 +26,15 @@ class Individuo(object):
         coord = int(geneXStr, 2)
         return (coord * 0.00978) - 5
 
+    def getGenes(self):
+        geneXStr = ""
+        for digit in self.genes:
+            geneXStr += str(digit)
+        return geneXStr
+
+    def setCromossomo(self, cromossomo):
+        self.genes = cromossomo
+
     def convertBinToDec(self, valor):
         return float(str(valor), 2)
 

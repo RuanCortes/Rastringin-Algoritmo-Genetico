@@ -1,47 +1,77 @@
+import random
+
 import numpy
-import relatorios.Execucao
 
-def calcula_fitness(equation_inputs, pop):
-    # Calculating the fitness value of each solution in the current population.
-    # The fitness function calculates the sum of products between each input and its corresponding weight.
-    fitness = numpy.sum(pop * equation_inputs, axis=1)
-    return fitness
+from Individuo import Individuo
+from setup import Variaveis
 
 
-#retorna uma populacao para cruzamento
-def selecao_de_pais(populacao, fitness, quantidade_pais):
-    # Selecting the best individuals in the current generation as parents for producing the offspring of the next generation.
-    pais = numpy.empty((quantidade_pais, populacao.shape[1]))
+def selecaoDePaisTorneio(populacao, qtdCompetidoresTorneio, qtdPais):
+    pais = []
+    for torneio in range(qtdPais):
+        candidatosTorneio = []
+        # seleciona qntCompetidores dos elementos da população de forma aleatoria para torneio
+        for individuo in range(qtdCompetidoresTorneio):
+            candidatosTorneio.append(random.choice(populacao))
 
-    for parent_num in range(quantidade_pais):
-        max_fitness_idx = numpy.where(fitness == numpy.max(fitness))
-        max_fitness_idx = max_fitness_idx[0][0]
-        pais[parent_num, :] = populacao[max_fitness_idx, :]
-        fitness[max_fitness_idx] = -99999999999
-        return pais
+        # verifica o elemento com menor fit
+        paiVencedor = None
+        for pai in candidatosTorneio:
+            if paiVencedor == None:
+                paiVencedor = pai
+            else:
+                if pai.fitness() < paiVencedor.fitness():
+                    paiVencedor = pai
+
+        # adiciona pai vencedor ao range de pais vencedores
+        pais.append(paiVencedor)
+
+    return pais
 
 
+def crossover(pais):
+    descendentes = []
 
+    ponto_de_corte = numpy.uint8(random.randrange(2, 19))
 
-def crossover(pais, comprimento_descendente):
-    descendente = numpy.empty(comprimento_descendente)
-    # The point at which crossover takes place between two parents. Usually, it is at the center.
-
-    ponto_de_corte = numpy.uint8(comprimento_descendente[1] / 2)
-
-    for k in range(comprimento_descendente[0]):
-        #TODO: pegar pais de forma aleatoria mais confiavel
+    for k in range(Variaveis.tamanhoPopulacao):
+        descendente = Individuo()
         # Index of the first parent to mate.
-        pai_1 = k % pais.shape[0]
+        pai_1 = k % len(pais)
         # Index of the second parent to mate.
-        pai_2 = (k + 1) % pais.shape[0]
-        # The new offspring will have its first half of its genes taken from the first parent.
-        descendente[k, 0:ponto_de_corte] = pais[pai_1, 0:ponto_de_corte]
-        # The new offspring will have its second half of its genes taken from the second parent.
-        descendente[k, ponto_de_corte:] = pais[pai_2, ponto_de_corte:]
-    return descendente
+        pai_2 = (k + 1) % len(pais)
 
-def gera_populacao_aleatoria():
-    #TODO: gera populacao aleatoria (20 bits - binario)
+        paiUm = pais[pai_1]
+        paiDois = pais[pai_2]
 
-    return
+        cromossomoFinal = pais[pai_1].genes[0:ponto_de_corte]
+
+        for genePai2 in pais[pai_2].genes[ponto_de_corte:20]:
+            cromossomoFinal.append(genePai2)
+
+        descendente.setCromossomo(mutacao(cromossomoFinal, 0.004))
+
+        descendentes.append(descendente)
+
+    return descendentes
+
+
+def mutacao(cromossomo, taxa_mutacao):
+    cromossomoInicial = cromossomo
+    houveMutacao = False
+    for gene in range(20):
+        if numpy.random.uniform(0.0, 1.0) < taxa_mutacao:
+            houveMutacao = True
+            if cromossomo[gene] == 1:
+                cromossomo[gene] = 0
+            else:
+                cromossomo[gene] = 1
+    return cromossomo
+
+
+def geraPopulacaoInicial():
+    individuos = []
+    for x in range(Variaveis.tamanhoPopulacao):
+        ind = Individuo().geraGenesAleatorios()
+        individuos.append(ind)
+    return individuos
