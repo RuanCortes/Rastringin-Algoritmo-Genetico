@@ -8,6 +8,7 @@ def calcula_fitness(equation_inputs, pop):
     return fitness
 
 
+#retorna uma populacao para cruzamento
 def selecao_de_pais(populacao, fitness, quantidade_pais):
     # Selecting the best individuals in the current generation as parents for producing the offspring of the next generation.
     pais = numpy.empty((quantidade_pais, populacao.shape[1]))
@@ -18,6 +19,8 @@ def selecao_de_pais(populacao, fitness, quantidade_pais):
         pais[parent_num, :] = populacao[max_fitness_idx, :]
         fitness[max_fitness_idx] = -99999999999
         return pais
+
+
 
 
 def crossover(pais, comprimento_descendente):
@@ -38,15 +41,7 @@ def crossover(pais, comprimento_descendente):
         descendente[k, ponto_de_corte:] = pais[pai_2, ponto_de_corte:]
     return descendente
 
+def gera_populacao_aleatoria():
+    #TODO: gera populacao aleatoria (20 bits - binario)
 
-def mutacao(descendente, taxa_mutacao):
-    # TODO: Revisar este método para ver se está funcionando crretamente
-    # Mutation changes a single gene in each offspring randomly.
-    for gene in range(descendente.shape[0]):
-        # The random value to be added to the gene.
-        if numpy.random.uniform(0.0, 1.0) < taxa_mutacao:
-            if gene == 1:
-                descendente[gene] == 0
-            else:
-                descendente[gene] == 1
-    return descendente
+    return
