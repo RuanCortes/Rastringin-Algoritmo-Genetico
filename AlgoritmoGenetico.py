@@ -20,7 +20,7 @@ def selecaoDePaisTorneio(populacao, qtdCompetidoresTorneio, qtdPais):
             if paiVencedor == None:
                 paiVencedor = pai
             else:
-                if pai.fitness() < paiVencedor.fitness():
+                if pai.fitness() > paiVencedor.fitness():
                     paiVencedor = pai
 
         # adiciona pai vencedor ao range de pais vencedores
@@ -32,7 +32,7 @@ def selecaoDePaisTorneio(populacao, qtdCompetidoresTorneio, qtdPais):
 def crossover(pais):
     descendentes = []
 
-    ponto_de_corte = numpy.uint8(random.randrange(2, 19))
+    ponto_de_corte = numpy.uint8(random.randrange(Variaveis.possibilidadePontoDeCorteInicio, Variaveis.possibilidadePontoDeCorteFim))
 
     for k in range(Variaveis.tamanhoPopulacao):
         descendente = Individuo()
@@ -49,7 +49,7 @@ def crossover(pais):
         for genePai2 in pais[pai_2].genes[ponto_de_corte:20]:
             cromossomoFinal.append(genePai2)
 
-        descendente.setCromossomo(mutacao(cromossomoFinal, 0.004))
+        descendente.setCromossomo(mutacao(cromossomoFinal, Variaveis.taxaDeMutacaoPorGene))
 
         descendentes.append(descendente)
 

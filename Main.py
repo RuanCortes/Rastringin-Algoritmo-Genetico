@@ -1,17 +1,19 @@
 import AlgoritmoGenetico
+from setup import Variaveis
 
 
 def main():
     populacaoInicial = AlgoritmoGenetico.geraPopulacaoInicial()
 
-    for k in range(300):
+    for k in range(Variaveis.numMaximoGeracoes):
         # print("################# Pais Selecionados #################")
         pais = AlgoritmoGenetico.selecaoDePaisTorneio(populacaoInicial, 5,
                                                       len(populacaoInicial))
 
         descendentes = AlgoritmoGenetico.crossover(pais)
         for descendente in descendentes:
-            print("geração: " + str(k) + " genes: " + descendente.getGenes() + " - fitness: " + str(descendente.fitness()))
+            print("geração: " + str(k) + " genes: " + descendente.getGenes() + " - fitness: " + str(
+                descendente.fitness()))
         populacaoInicial = descendentes
 
     print("############### POPULACAO FINAL ###############")

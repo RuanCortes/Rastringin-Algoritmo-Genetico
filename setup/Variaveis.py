@@ -1,8 +1,9 @@
 """ Parametros populacao """
-tamanhoPopulacao = 2000
+tamanhoPopulacao = 100
 
 """ Parametros algoritmo genetico """
-numMaximoGeracoes = 50000
-#crossover
-probabilidadeCruzamento = 0.7
-pontoCorte = 0.5 #0 para aleatorio
+numMaximoGeracoes = 50
+taxaDeMutacaoPorGene = 0.01
+
+possibilidadePontoDeCorteInicio = 2
+possibilidadePontoDeCorteFim = 18
