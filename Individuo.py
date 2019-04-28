@@ -63,4 +63,6 @@ class Individuo(object):
         x = self.getX()
         y = self.getY()
 
-        return 20 + (x*x) + (y*y) - (10 * ((numpy.math.cos(2 * numpy.math.pi * x) + numpy.math.cos(2 * numpy.math.pi * y))))
+        resultadoFuncao = 20 + (x*x) + (y*y) - (10 * ((numpy.math.cos(2 * numpy.math.pi * x) + numpy.math.cos(2 * numpy.math.pi * y))))
+
+        return (80.7046745258618 - resultadoFuncao)

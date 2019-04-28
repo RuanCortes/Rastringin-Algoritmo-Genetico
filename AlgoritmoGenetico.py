@@ -20,7 +20,7 @@ def selecaoDePaisTorneio(populacao, qtdCompetidoresTorneio, qtdPais):
             if paiVencedor == None:
                 paiVencedor = pai
             else:
-                if pai.fitness() < paiVencedor.fitness():
+                if pai.fitness() > paiVencedor.fitness():
                     paiVencedor = pai
 
         # adiciona pai vencedor ao range de pais vencedores
