@@ -1,5 +1,5 @@
 """ Parametros populacao """
-tamanhoPopulacao = 50
+tamanhoPopulacao = 10
 
 """ Parametros algoritmo genetico """
 numMaximoGeracoes = 20
