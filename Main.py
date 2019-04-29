@@ -1,5 +1,8 @@
-#import matplotlib.pyplot as plt
+import math
+
+import matplotlib.pyplot as plt
 import AlgoritmoGenetico
+import numpy as np
 from Populacao import Populacao
 from setup import Variaveis
 
@@ -9,6 +12,9 @@ def main():
 
     populacaoInicial = AlgoritmoGenetico.geraPopulacaoInicial()
     populacoes.append(Populacao(populacaoInicial))
+
+    historicoMelhorFitness = []
+    historicoFitnessMedio = []
 
     for k in range(Variaveis.numMaximoGeracoes):
         # print("################# Pais Selecionados #################")
@@ -28,9 +34,17 @@ def main():
 
     print("############### MELHOR FITNESS - MEDIA ###############")
     for pop in populacoes:
+        historicoMelhorFitness.append(pop.calculaFitnessMedioEMelhorFitness()[0])
+        historicoFitnessMedio.append(pop.calculaFitnessMedioEMelhorFitness()[1])
         print(pop.calculaFitnessMedioEMelhorFitness())
 
-    #plt.plot(populacoes)
+    plt.plot(historicoMelhorFitness)
+    plt.plot(historicoFitnessMedio)
+
+    plt.legend(['Melhor Fitness', 'Fitness Médio'], loc='down right')
+
+    plt.show()
+
 
 if __name__ == "__main__":
     main()
