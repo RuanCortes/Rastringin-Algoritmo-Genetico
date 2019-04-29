@@ -11,7 +11,6 @@ class Populacao(object):
         melhorFitness = 0
         fitnessTotal = 0
 
-
         for i in range(len(self.individuos)):
             # verifica melhor fitness da populacao
             if self.individuos[i].fitness() > melhorFitness:

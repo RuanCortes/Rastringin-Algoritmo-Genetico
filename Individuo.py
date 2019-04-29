@@ -9,9 +9,7 @@ class Individuo(object):
     def __init__(self):
         self.genes = []  # inicializa array de genes do individuo
 
-    #def __init__(self, gene):
-    #    self.genes = [int(x) for x in str(gene).split("-")]
-
+    # gera valor inteiro X com base nos 10 primeiros bits do cromossomo do individuo
     def getX(self):
         geneXStr = ""
         for digit in self.genes[0:10]:
@@ -19,6 +17,7 @@ class Individuo(object):
         coord = int(geneXStr, 2)
         return (coord * 0.00978) - 5
 
+    # gera valor inteiro Y com base nos 10 primeiros bits do cromossomo do individuo
     def getY(self):
         geneXStr = ""
         for digit in self.genes[10:20]:
@@ -26,31 +25,18 @@ class Individuo(object):
         coord = int(geneXStr, 2)
         return (coord * 0.00978) - 5
 
+    # retorna o cromossomo do individuo no formato string
     def getGenes(self):
         geneXStr = ""
         for digit in self.genes:
             geneXStr += str(digit)
         return geneXStr
 
+    # atribui um cromossomo ao individuo
     def setCromossomo(self, cromossomo):
         self.genes = cromossomo
 
-    def convertBinToDec(self, valor):
-        return float(str(valor), 2)
-
-    def crossover(self, individuo):
-        # implementacao do crossover
-        return individuo
-
-    def mutacao(self, probabilidade):
-        for gene in range(self.genes):
-            # The random value to be added to the gene.
-            if numpy.random.uniform(0.0, 1.0) < probabilidade:
-                if gene == 1:
-                    self[gene] == 0
-                else:
-                    self[gene] == 1
-
+    # gera um cromossomo totalmente aleatorio
     def geraGenesAleatorios(self):
         self.genes = []
         for x in range(20):
@@ -59,10 +45,12 @@ class Individuo(object):
 
         return self
 
+    # calcula fitness do individuo
     def fitness(self):
         x = self.getX()
         y = self.getY()
 
-        resultadoFuncao = 20 + (x*x) + (y*y) - (10 * ((numpy.math.cos(2 * numpy.math.pi * x) + numpy.math.cos(2 * numpy.math.pi * y))))
+        resultadoFuncao = 20 + (x * x) + (y * y) - (
+                10 * ((numpy.math.cos(2 * numpy.math.pi * x) + numpy.math.cos(2 * numpy.math.pi * y))))
 
         return (80.7046745258618 - resultadoFuncao)

@@ -8,6 +8,7 @@
 
 __pycache__
 .idea/
+relatorios/*
 
 # User-specific stuff
 .idea/**/workspace.xml

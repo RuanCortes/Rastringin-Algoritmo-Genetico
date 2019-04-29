@@ -1,8 +1,8 @@
 """ Parametros populacao """
-tamanhoPopulacao = 10
+tamanhoPopulacao = 100
 
 """ Parametros algoritmo genetico """
-numMaximoGeracoes = 20
+numMaximoGeracoes = 50
 taxaDeMutacaoPorGene = 0.0025
 
 possibilidadePontoDeCorteInicio = 2

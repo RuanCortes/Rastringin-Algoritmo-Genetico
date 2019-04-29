@@ -32,17 +32,14 @@ def selecaoDePaisTorneio(populacao, qtdCompetidoresTorneio, qtdPais):
 def crossover(pais):
     descendentes = []
 
-    ponto_de_corte = numpy.uint8(random.randrange(Variaveis.possibilidadePontoDeCorteInicio, Variaveis.possibilidadePontoDeCorteFim))
+    ponto_de_corte = numpy.uint8(
+        random.randrange(Variaveis.possibilidadePontoDeCorteInicio, Variaveis.possibilidadePontoDeCorteFim))
 
     for k in range(Variaveis.tamanhoPopulacao):
         descendente = Individuo()
-        # Index of the first parent to mate.
-        pai_1 = k % len(pais)
-        # Index of the second parent to mate.
-        pai_2 = (k + 1) % len(pais)
 
-        paiUm = pais[pai_1]
-        paiDois = pais[pai_2]
+        pai_1 = k % len(pais)
+        pai_2 = (k + 1) % len(pais)
 
         cromossomoFinal = pais[pai_1].genes[0:ponto_de_corte]
 
